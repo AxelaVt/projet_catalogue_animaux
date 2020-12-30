@@ -21,6 +21,7 @@ function getUsersList($user)
 
 }
 
+// uniquement si user = admin
 function getAnimalsListAdmin($user)
 {
   $animalsManager = new Animaux(); // Création d'un objet
@@ -105,11 +106,9 @@ function changePassword($password, $username)
 {
   $usermanager = new Users();
   $passwordbdd = $usermanager->get_username($username); //recup les données associées au user connecté
-  //$usermanager->set_password($passwordbdd['id'], $password);// enregistre le nouveau password en lien ave l'id connecté
   $password_hashed = password_hash($password, PASSWORD_BCRYPT);
   $usermanager->set_password($passwordbdd['id'], $password_hashed);// enregistre le nouveau password en lien ave l'id connecté
   $newpasswordbdd = $usermanager->get_username($username); // recupère les données associées au user connecté
-  //if ($newpasswordbdd['password'] === $password) {
   if(password_verify($password, $newpasswordbdd['password'])){
     return 'true';
   }else{
@@ -128,19 +127,23 @@ function userConnexion($username, $password)
       }
 }
 
+// fonction filtrer par alimentation
 function animalsAlim($alim){
   $animalsManager = new Animaux();
-  $animals = $animalsManager->get_alim($alim);
-  var_dump($animals);
+  $animals = $animalsManager->get_unarchived();
+  //$animals = $animalsManager->get_alim($alim);  c
+  $recherche = 'alimentation';
   $value= $alim;
+
   require('view/animalSortView.php');
 
 }
 
 function animalsFamily($family){
   $animalsManager = new Animaux();
-  $animals = $animalsManager->get_family($family);
-  var_dump($animals);
+  $animals = $animalsManager->get_unarchived();
+  //$animals = $animalsManager->get_family($family); //ne fonctionne pas??
+  $recherche = 'family';
   $value = $family;
   require('view/animalSortView.php');
 
@@ -148,8 +151,9 @@ function animalsFamily($family){
 
 function animalsType($type){
   $animalsManager = new Animaux();
-  $animals = $animalsManager->get_type($type);
-  var_dump($animals);
+  $animals = $animalsManager->get_unarchived();
+  //$animals = $animalsManager->get_type($type);  //ne fonctionne pas??
+  $recherche = 'type';
   $value = $type;
   require('view/animalSortView.php');
 

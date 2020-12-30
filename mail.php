@@ -4,7 +4,7 @@
   //$to  = 'a.vermenot@codeur.online'; // notez la virgule pour ajouter un destinataire en plus
 
   // Le sujet du mail
-  $subject = message de projet Bestiaire;
+  $subject = 'message de projet Bestiaire';
 
   //Le message à envoyer
   $message = '<html><p>'. $_POST['name'].'</p>
