@@ -52,6 +52,7 @@ function animalDelete($id, $user)
   $animal = $animalsManager->remove($_GET['id']);
 
   getAnimalsListAdmin($user);
+  
 }
 
 function animalArchived($id, $user){
